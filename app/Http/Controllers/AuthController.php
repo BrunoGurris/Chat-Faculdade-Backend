@@ -2,43 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        try {
+            $credentials = $request->only(['username', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            if(!$token = Auth::attempt($credentials)) {
+                return response()->json([
+                    'message' => 'Usuário ou senha estão incorretos!'
+                ], 401);
+            }
+
+            return $this->respondWithToken($token);
         }
-
-        return $this->respondWithToken($token);
+        catch(Exception $e) {
+            return response()->json([
+                'message' => 'Não foi possível fazer o login!'
+            ], 400);
+        }
     }
+
 
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json([
+            auth()->user()
+        ], 200);
     }
+
 
     public function logout()
     {
-        auth()->logout();
+        try {
+            Auth::logout();
+            return response()->json([
+                'message' => 'Deslogado com sucesso!'
+            ], 200);
+        }
+        catch(Exception $e) {
+            return response()->json([
+                'message' => 'Não foi possível deslogar!'
+            ], 400);
+        }
 
-        return response()->json(['message' => 'Successfully logged out']);
     }
 
-    public function refresh()
-    {
-        return $this->respondWithToken(Auth::refresh());
-    }
 
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
+            'token' => $token,
             'token_type' => 'bearer',
             'expires_in' => Auth::factory()->getTTL() * 60
         ]);
