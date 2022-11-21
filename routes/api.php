@@ -16,4 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/me', [AuthController::class, 'me']);
+
+/* Rotas para logados */
+Route::middleware(['apiJWT'])->group(function () {
+    Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+});
+/* */
