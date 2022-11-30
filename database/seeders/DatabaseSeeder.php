@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $user = new User();
         $user->username = 'bruno';
         $user->name = mb_strtoupper('BRUNO ALEXANDRE');
-        $user->password = Hash::make('12345');
+        $user->password = Hash::make('123');
         $user->save();
 
         $message = new Message();

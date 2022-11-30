@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['apiJWT'])->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::get('/logout', [AuthController::class, 'logout']);
+
+    Route::get('/messages', [ChatController::class, 'getMessages']);
 });
 /* */
