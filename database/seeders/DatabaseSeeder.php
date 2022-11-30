@@ -20,6 +20,12 @@ class DatabaseSeeder extends Seeder
         $user->password = Hash::make('123');
         $user->save();
 
+        $user2 = new User();
+        $user2->username = 'rebeca';
+        $user2->name = mb_strtoupper('REBECA PEDROSO');
+        $user2->password = Hash::make('123');
+        $user2->save();
+
         $message = new Message();
         $message->user_id = 1;
         $message->message = 'Olá';

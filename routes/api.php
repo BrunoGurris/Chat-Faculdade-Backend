@@ -24,5 +24,6 @@ Route::middleware(['apiJWT'])->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 
     Route::get('/messages', [ChatController::class, 'getMessages']);
+    Route::post('/messages', [ChatController::class, 'saveMessage']);
 });
 /* */
