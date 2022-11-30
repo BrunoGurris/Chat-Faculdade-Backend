@@ -63,6 +63,7 @@ class AuthController extends Controller
             $user->username = mb_strtolower($request->username);
             $user->name = mb_strtoupper($request->name);
             $user->password = Hash::make($request->password);
+            $user->picture = rand(0, 6);
             $user->save();
 
             return $this->login($request);

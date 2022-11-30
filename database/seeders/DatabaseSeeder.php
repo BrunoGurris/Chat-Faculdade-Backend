@@ -18,12 +18,14 @@ class DatabaseSeeder extends Seeder
         $user->username = 'bruno';
         $user->name = mb_strtoupper('BRUNO ALEXANDRE');
         $user->password = Hash::make('123');
+        $user->picture = 0;
         $user->save();
 
         $user2 = new User();
         $user2->username = 'rebeca';
         $user2->name = mb_strtoupper('REBECA PEDROSO');
         $user2->password = Hash::make('123');
+        $user->picture = 1;
         $user2->save();
 
         $message = new Message();

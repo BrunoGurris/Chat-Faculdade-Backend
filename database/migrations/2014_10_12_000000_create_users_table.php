@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('name');
             $table->string('password');
+            $table->integer('picture');
             $table->timestamps();
         });
     }

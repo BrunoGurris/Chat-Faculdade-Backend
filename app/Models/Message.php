@@ -12,7 +12,8 @@ class Message extends Model
 
     protected $appends = [
         'name',
-        'me'
+        'me',
+        'picture'
     ];
 
 
@@ -25,5 +26,11 @@ class Message extends Model
     public function getMeAttribute()
     {
         return $this->user_id === Auth::id() ? true : false;
+    }
+
+    public function getPictureAttribute()
+    {
+        $user = User::find($this->user_id);
+        return $user ? $user->picture : 0;
     }
 }
